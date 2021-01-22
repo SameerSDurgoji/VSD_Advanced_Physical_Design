@@ -2,11 +2,11 @@
 # Day 1: Inception of open-source EDA, OpenLANE and Sky130 PDK #
 ## How to talk to computers ##
 ### Introduction to RISC V ###
-What is an Instruction Set Architecture?
+* What is an Instruction Set Architecture?
 The Instruction Set Architecture (ISA) defines the software specification for a hardware. ISA defines a set of instructions and how they behave, data types, registers, addressing modes, etc. 
 RISC V is an open Instruction Set Architecture. It is a well organised ISA divided into categories and extensions. ARM architecture is commonly used for mobile phones and the x86 is used for personal computers.
 
-How it helps in bridging the gap between Software and Hardware?
+* How it helps in bridging the gap between Software and Hardware?
 Suppose we need to run a C program or any high level language program on a hardware. The main problem is that the hardware cannot understand the high level language and can understand only the machine level language i.e. binary language. It is here where the ISA comes to rescue. The compiler converts the high level language into a RISC V assembly level language. This is then converted into a machine level program which contains binary language. The hardware can understand this language and thus ISA helps in bridging the gap between Software and Hardware.
 
 ## SoC design and OpenLANE ##
