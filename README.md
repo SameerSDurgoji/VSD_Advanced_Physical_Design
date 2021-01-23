@@ -170,10 +170,86 @@ We find the area occupied by the cell in the file named picorv32a.floorplan.def 
 
 
 
+Given below are the different variables and their default values in floorplanning. It can be found in the README.md file in the configuration directory.
+
+
+
+
 Here we can find that the Lower Left coordinates of the Die are: (0 0) ; the Upper Right coordinates of the die are: (1057235 806405).
+
+To open the layout in magic, the following command must be typed:
+
+magic -T <tech file location> lef read <lef file location> def read <def file location>
 
 The screenshot of the layout opened in MAGIC tool is as shown:
 
 
 
 Here we can observe that the input pins are placed equidistant to each other. The decoupling capacitor cells are arranged in the boundary of the core. Also, the standard cells are kept in the lower left corner.
+
+## Placement ##
+
+We now have the floorplan, netlist and the cell library. The next step is to place the netlist in the floorplan using the library.
+
+Next the placement has to be optimized. This is the stage where we estimate the wire lengths and based on that, insert repeaters. To maintain the signal integrity, repeaters are used. Repeaters are basically buffers that will recondition the original signal, make a new signal replecatind the original one. But inturn this will consume area.
+
+### Running the placement on OpenLANE tool ###
+
+There are two stages of placement namely global placement and detailed placement.
+
+The main goal in placement is to reduce the HPWL. HPWL is the half parametric wire length.
+
+The command run_placement has to be given.
+
+After a successful placement, we can open the layout in the MAGIC tool using the command:
+
+magic -T <tech file location> lef read <lef file location> def read <def file location>
+ 
+The screenshot of the layout after placement is as shown below:
+
+
+
+## Cell Design Flow ##
+
+A standard cell library has the cells with different sizes, different functionality and also with different threshold voltage. It contains the information about the width, height, delay, etc of each cell in it.
+
+The cell design flow is as follows:
+
+* Inputs: Process Design Kits (PDKs), DRC and LVS rules, SPICE Models, Library and user defined specs.
+* Design Steps: Circuit design, Layout Design, Characterization.
+* Outputs: CDL (Circuit Description Language), GDSII, LEF, extracted spice netlist (.cir), timing, noise, power .libs, functions.
+
+### Characterization Flow ###
+
+The characterization flow is as follows:
+
+1. Read the model files.
+2. Read the extracted spice netlist.
+3. Recognize the behaviour of the circuit.
+4. Read the subcircuit files.
+5. Attach the necessary power supplies.
+6. Apply the stimulus.
+7. Provide necessary output capacitance.
+8. Provide necessary simulation commands.
+
+These are to be fed as a configuration file to the characterization software called GUNA. The software will generate timing, noise, power .libs, functions.
+
+There are 3 types of Characterization:
+* Timing Characterization
+* Power Characterization
+* Noise Characterization
+
+### Timing Charcterization: ###
+
+1. slew_low_rise_thr          20%
+2. slew_high_rise_thr         80%
+3. slew_low_fall_thr          20%
+4. slew_high_fall_thr         80%
+5. in_rise_thr                50%
+6. in_fall_thr                50%
+7. out_rise_thr               50%
+8. out_fall_thr               50%
+
+
+
+
