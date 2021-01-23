@@ -39,7 +39,7 @@ It is tuned for SkyWater 130 nm open PDK. It can be used to harden the Macros an
 ### OpenLANE ASIC design flow ###
 
 The OpenLANE detailed ASIC design flow along with the tools used is as shown below:
-
+![Open Lane flow] (Day 1/openlane flow.png)
 
 
 
