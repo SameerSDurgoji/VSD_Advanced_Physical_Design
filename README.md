@@ -12,6 +12,8 @@ RISC V is an open Instruction Set Architecture. It is a well organised ISA divid
 
 Suppose we need to run a C program or any high level language program on a hardware. The main problem is that the hardware cannot understand the high level language and can understand only the machine level language i.e. binary language. It is here where the ISA comes to rescue. The compiler converts the high level language into a RISC V assembly level language. This is then converted into a machine level program which contains binary language. The hardware can understand this language and thus ISA helps in bridging the gap between Software and Hardware.
 
+![RISC V] (https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%201/Screenshot_6.png)
+
 ## SoC design and OpenLANE ##
 There are three components of an ASIC design flow. They are RTL IP's, EDA tools (like SPICE, MAGIC, OpenLANE, etc.), PDK. PDK stands for Process Design Kit. It includes process design rules: DRC, LVS, etc., device models, digital standrd cell library, input output libraries.
 
@@ -39,7 +41,7 @@ It is tuned for SkyWater 130 nm open PDK. It can be used to harden the Macros an
 ### OpenLANE ASIC design flow ###
 
 The OpenLANE detailed ASIC design flow along with the tools used is as shown below:
-![Open Lane flow] (Day 1/openlane flow.png)
+![Open Lane flow] (https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%201/openlane%20flow.png)
 
 
 
@@ -63,16 +65,14 @@ There are two modes in which the tool works.
                     2. package require openlane 0.9 ( importing the package )
                     3. prep -design <design_name> ( preparing the design)
                     
- invoking screenshot                   
+![invoking screenshot] (https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%201/invoking%20openlane.png)                   
 
 ### Preparing the design ###
 
 Before synthesis, we need to prepare the file system, the data design setup stage which will be setting the data for our design. Merging of lef.py happens. The cell level lef file and the technology level lef files are merged.  
 
-This picture shows the runs created after preparing the design:
-
-This picture shows the merged.lef file created after preparing the design:
-
+This picture shows the runs and the merged.lef file created after preparing the design:
+![runs] (https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%201/runs%20and%20the%20merged.lef%20created%20after%20preparing_LI.jpg)
 
 * config.tcl in runs folder shows which all are the default parameters taken by runs.
 * cmds.log keeps the record of all the commands.
@@ -82,6 +82,7 @@ This picture shows the merged.lef file created after preparing the design:
 To run the synthesis, the command run_synthesis must be given.
 
 The below shown screen will appear after a successful synthesis:
+![synthesis] (https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%201/synthesis%20successful.png)
 
 
 ### Flop ratio ###
@@ -89,7 +90,7 @@ The below shown screen will appear after a successful synthesis:
 It is the ratio of the number of D flip flops to the total number of cells.
 
 The obtained number of gates after synthesising the design of picorv32a are as shown:
-
+![flop ratio] (https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%201/Flop%20Ratio%20question_LI.jpg)
 
 
 The flop ratio is found to be 0.09432 .
