@@ -143,7 +143,7 @@ Solution: Adding the decoupling capacitors parallel with the circuit. Everytime 
 There is a chance of noise getting introduced in the circuit if the voltage droop and ground bounce exceed the noise margin. This problem is due to a single power supply. So multiple power supplies are needed so that if any logic demands current, it takes current from the nearest power supply. 
 
 The image explaining this is shown below:
-
+![Power Planning](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%202%20lab/power%20planning%204.png)
 
 
 ### Pin Placement ###
@@ -158,20 +158,17 @@ The area between the die and core is used to fill pin information and is blocked
 
 To run the floorplan, the command run_floorplan must be given. 
                 
-Below is a screenshot of the floorplan.tcl file:
-
-
 
 Below is a screenshot of the floorplan.tcl file and the ioPlacer.log file :
-
+![floorplan.tcl](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%202%20lab/floorplan.tcl%20file%20and%20the%20ioPlacer.log%20file%20in%20runs.png)
 
 
 We find the area occupied by the cell in the file named picorv32a.floorplan.def . The screenshot of that file is as shown:
-
+![picorv32a.ploorplan.def](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%202%20lab/picorv32a.floorplan.def%20file.png)
 
 
 Given below are the different variables and their default values in floorplanning. It can be found in the README.md file in the configuration directory.
-
+![Readme.md](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%202%20lab/Different%20variables%20and%20their%20default%20values%20in%20floorplanning.png)
 
 
 
@@ -182,10 +179,13 @@ To open the layout in magic, the following command must be typed:
 magic -T <tech file location> lef read <lef file location> def read <def file location>
 
 The screenshot of the layout opened in MAGIC tool is as shown:
+![layout in magic](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%202%20lab/Layout%20opened%20in%20Magic.png)
 
 
 
 Here we can observe that the input pins are placed equidistant to each other. The decoupling capacitor cells are arranged in the boundary of the core. Also, the standard cells are kept in the lower left corner.
+
+![Zoom in](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%202%20lab/ip%20pins%2C%20decap%20cells.png)
 
 ## Placement ##
 
@@ -206,6 +206,7 @@ After a successful placement, we can open the layout in the MAGIC tool using the
 magic -T <tech file location> lef read <lef file location> def read <def file location>
  
 The screenshot of the layout after placement is as shown below:
+![placement layout](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%202%20lab/Placement_Magic.png)
 
 
 
