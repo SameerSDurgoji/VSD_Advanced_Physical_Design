@@ -101,5 +101,78 @@ It is the ratio of the number of buffers to the total number of cells.
 The buffer ratio was found to be 0.1322 .
 
 
+# Day 2:  Understand importance of good floorplan vs bad floorplan and introduction to library cells #
 
+## Chip Floor Planning Considerations ##
+The following are the considerations of a Chip Floorplan:
+* Utilization Factor
+* Aspect Ratio
+* Location of preplaced cells
+* Decoupling capacitors
+* Power planning
+* Pin placement
+* Logical cell placement blockage
+
+### Utilization Factor ###
+
+First step in the physical design flow is to define the height and width of die and core.
+
+Utilization Factor is the ratio of area occupied by the netlist to the total area of the core.
+
+A utilization factor of 1 signifies that the entire area of the core is occupied by the netlist. However, practically we wont have a utilization factor of 1.
+
+### Aspect Ratio ###
+
+Aspect ratio is the ratio of the height of the core to width of the core.
+
+Aspect ratio signifies whether the core is rectangle or square. An aspect ratio of 1 signifies that the core is a square.
+
+### Location of the preplaced cells ###
+
+Preplaced cells are the Macros or IPs which is a piece of complex logic and is being used multiple times. The arrangement of these IPs is included in floorplanning. These blocks have user defined locations and hence are placed in chip before automated placement and routing. These preplaced cells will be placed depending on the design scenario.
+
+### Decoupling Capacitors ###
+
+Due to the resistance and the inductance of the power supply wire, the power supplies Vdd and Vss would be dropped by some value to Vdd' and Vss' near the cells. If Vdd' goes below noise margin, the logic 1 at the output of the cell will not be detected as logic 1.
+
+Solution: Adding the decoupling capacitors parallel with the circuit. Everytime the circuit switches, it draws current from the Capacitor and the RL network is used to replenish the charge into The capacitor. Hence it decouples the circuit from the supply.
+
+### Power Planning ###
+
+There is a chance of noise getting introduced in the circuit if the voltage droop and ground bounce exceed the noise margin. This problem is due to a single power supply. So multiple power supplies are needed so that if any logic demands current, it takes current from the nearest power supply. 
+
+The image explaining this is shown below:
+
+
+
+### Pin Placement ###
+
+The connectivity information between the gates is coded using VHDL or verilog language and is called as a netlist. The area between the die and the core is used for placing the I/O pins.
+
+### Logical Cell Placement Blockage ###
+
+The area between the die and core is used to fill pin information and is blocked for the placement and routing tool as it is reserved for pin placement.
+
+### Running the floorplan on OpenLANE tool ###
+
+To run the floorplan, the command run_floorplan must be given. 
                 
+Below is a screenshot of the floorplan.tcl file:
+
+
+
+Below is a screenshot of the floorplan.tcl file and the ioPlacer.log file :
+
+
+
+We find the area occupied by the cell in the file named picorv32a.floorplan.def . The screenshot of that file is as shown:
+
+
+
+Here we can find that the Lower Left coordinates of the Die are: (0 0) ; the Upper Right coordinates of the die are: (1057235 806405).
+
+The screenshot of the layout opened in MAGIC tool is as shown:
+
+
+
+Here we can observe that the input pins are placed equidistant to each other. The decoupling capacitor cells are arranged in the boundary of the core. Also, the standard cells are kept in the lower left corner.
