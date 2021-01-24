@@ -251,6 +251,129 @@ There are 3 types of Characterization:
 7. out_rise_thr               50%
 8. out_fall_thr               50%
 
+# Day 3: Design library cell using Magic Layout and ngspice characterization #
+
+### IO Placer Modes ###
+There are totally 4 strategies of the pin placement supported by IO placer.
+
+Initially, it was set to 1 where the pins were equidistant to each other.We can find the default setting in the floorplan.tcl file. The snapshots of it are as follows:
+
+
+
+
+To change the mode on fly, the following command has to be typed set ::env(FP_IO_MODE) <Mode_number>. On changing the mode number to 2, the following result was obtained:
+
+
+
+
+
+It was observed that the pins were stacked.
+
+### Cloning the vsdstdcelldesign repo from Github to a local machine ###
+
+This will copy all the .lib and .mag files from the Git repo to the local machine.
+
+The snapshot of the cloning process is shown below:
+
+
+
+
+
+## SPICE deck creation for a CMOS Inverter ##
+
+First step to charaterize a gate is to create a SPICE deck. A SPICE deck contains information about the following :
+
+* Component connctivity
+* Component values (the dimensions of MOSFETs, input gate voltage, supply voltage, capacitor values, etc..)
+* Location and names of the nodes.
+
+### Switching Threshold, Vm ###
+
+Vm is the point where Vin = Vout. At this point, both the NMOSFET and the PMOSFET will be in the saturation region.
+
+## Inception of Layout - CMOS fabrication process ##
+
+### 16 Mask CMOS process ###
+
+1. Selection of the substrate:
+
+A suitable substrate is chosen with appropriate resistance, doping level and orientation. It should be kept in mind that the substrate doping level should be less than well doping. Eg. P type substrate, high resistivity(5-50 ohms), doping level(10^15 per sq.cm), orientation(100).
+
+2. Creating active region for transistors:
+
+On the P substrate, 40nm of SiO2 and 80nm of Si3N4, 1um of photoresist is deposited. **Mask 1** is used to cover the part of photoresist below which active region is to be created. After exposing to UV light, the mask will be removed. The Si3N4 will be etched out and then the photoresist is removed. This is the placed in oxidation furnace and field oxide is grown.
+
+3. N well and P well formation:
+4. Formation of gate:
+5. Lightly Doped Drain formation:
+6. Source & Drain formation:
+7. Steps to form Contacts and Interconnects:
+8. Higher level metal formation:
+
+## Lab Exercises ##
+
+### Opening the inverter layout on the MAGIC tool ###
+
+To open the inverter layout on the MAGIC tool, the command magic -T <tech_file> <mag_file> has to be given.
+
+Following are the snapshots of the layout:
+
+
+
+### Extraction of .spice file and running it ###
+
+To extract the .spice file from the MAGIC tool, including all the parasitic capacitances, the following codes has to be given in the MAGIC console:
+
+
+The extracted spice file is opened and necessary things are added so as to run the file in the Ng SPICE tool. The model files are included. The model name is updated. The power supply are added. A pulse input is given at the gate. The snapshot of the updated spice file is shown below:
+
+
+
+
+
+Below is the snapshot of the PMOSFET model file:
+
+
+
+
+Below is the snapshot of the NMOSFET model file:
+
+
+
+
+To run it on the Ng SPICE tool, the following command is to be given:
+
+ngspice <file_name.spice>
+
+
+
+
+
+The transient response is obtained by running ' plot y vs time a '. The transient response is obtained as follows:
+
+
+
+
+
+
+The rise tranistion time is calculated by finding the difference between the time taken to reach 80% of the output from the 20% of the output. The snapshot below shows the time at the two positions. It was calculated to be
+
+
+
+The cell rise propagation delay is calculated as the difference of the time taken to reach 50% of the input to 50% of the output. The snapshot below shows the time at two positions. It was calculated to be 
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
