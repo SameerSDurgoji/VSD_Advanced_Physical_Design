@@ -257,12 +257,14 @@ There are 3 types of Characterization:
 There are totally 4 strategies of the pin placement supported by IO placer.
 
 Initially, it was set to 1 where the pins were equidistant to each other.We can find the default setting in the floorplan.tcl file. The snapshots of it are as follows:
-
+![strategy1](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%203%20lab/io%20strategy%201.png)
+![mode1](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%203%20lab/MODE%201.png)
 
 
 
 To change the mode on fly, the following command has to be typed set ::env(FP_IO_MODE) <Mode_number>. On changing the mode number to 2, the following result was obtained:
-
+![stategy2](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%203%20lab/io%20strategy%202.png)
+![mode2](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%203%20lab/MODE%202.png)
 
 
 
@@ -274,7 +276,7 @@ It was observed that the pins were stacked.
 This will copy all the .lib and .mag files from the Git repo to the local machine.
 
 The snapshot of the cloning process is shown below:
-
+![cloning](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%203%20lab/cloning.png)
 
 
 
@@ -315,42 +317,40 @@ On the P substrate, 40nm of SiO2 and 80nm of Si3N4, 1um of photoresist is deposi
 ### Opening the inverter layout on the MAGIC tool ###
 
 To open the inverter layout on the MAGIC tool, the command magic -T <tech_file> <mag_file> has to be given.
+![opening in magic](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%203%20lab/opening%20inv%20layout%20in%20magic.png)
 
 Following are the snapshots of the layout:
-
+![inv_layout](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%203%20lab/inv%20layout%20opened%20in%20magic.png)
 
 
 ### Extraction of .spice file and running it ###
 
 To extract the .spice file from the MAGIC tool, including all the parasitic capacitances, the following codes has to be given in the MAGIC console:
-
+![extraction](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%203%20lab/extraction%20of%20.spice%20file.png)
 
 The extracted spice file is opened and necessary things are added so as to run the file in the Ng SPICE tool. The model files are included. The model name is updated. The power supply are added. A pulse input is given at the gate. The snapshot of the updated spice file is shown below:
-
-
-
+![edited spice](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%203%20lab/final%20spice%20deck.png)
 
 
 Below is the snapshot of the PMOSFET model file:
 
-
+![PMOS model](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%203%20lab/pmos%20model%20file.png)
 
 
 Below is the snapshot of the NMOSFET model file:
 
-
+![NMOS model](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%203%20lab/nmos%20model%20file.png)
 
 
 To run it on the Ng SPICE tool, the following command is to be given:
 
 ngspice <file_name.spice>
 
-
-
+![running spice](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%203%20lab/running%20the%20spice%20deck.png)
 
 
 The transient response is obtained by running ' plot y vs time a '. The transient response is obtained as follows:
-
+![transient](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%203%20lab/obtained%20transient%20response.png)
 
 
 
@@ -358,10 +358,12 @@ The transient response is obtained by running ' plot y vs time a '. The transien
 
 The rise tranistion time is calculated by finding the difference between the time taken to reach 80% of the output from the 20% of the output. The snapshot below shows the time at the two positions. It was calculated to be
 
+![transition](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%203%20lab/transition%20time.png)
 
 
 The cell rise propagation delay is calculated as the difference of the time taken to reach 50% of the input to 50% of the output. The snapshot below shows the time at two positions. It was calculated to be 
 
+![propagation](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%203%20lab/propagation%20delay.png)
 
 
 
