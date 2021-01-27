@@ -374,7 +374,7 @@ Tracks are used in the process of routing. We can find a track.info file in the 
 
 A screenshot of the contents of the file is as shown below:
 
-
+![track.info file](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%204%20lab/track.info%20file.png)
 
 This file contains information about the horizontal and vertical offsets and pitches of each metal layer.
 
@@ -386,7 +386,7 @@ Some guidelines while making the standard cells :
 
 In the below picture, we can see that the ports are located at the intersection of the tracks.
 
-
+![ports at intersection](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%204%20lab/track%20file%20and%20the%20port%20on%20intersection.png)
 
 
 ### Extracting the lef file ###
@@ -397,12 +397,12 @@ So, the next step would be to extract LEF file out of the mag file.
 
 For extracting the lef file, the following command must be given in the magic console: lef write
 
-
+![extracting lef file](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%204%20lab/extracting%20the%20lef%20file.png)
 
 
 This is the screenshot of the contents of the lef file.
 
-
+![contents of lef](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%204%20lab/contents%20of%20lef%20file.png)
 
 ## Delay Tables ##
 
@@ -417,7 +417,7 @@ Only then the total skew at the clock end ponts would be zero.
 
 The config.tcl file had to be modified as shown: 
 
-
+![modified config.tcl](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%204%20lab/modified%20config.tcl%20file.png)
 
 Then, we had to invoke OpenLANE tool and prepare the design picorv32a. After this, we had to include the lef file of our custom made inverter sky130_vsdinv in the merged.lef file. So, the following comments had to be given:
 
@@ -427,18 +427,18 @@ add_lefs -src $lefs
 
 We can see the lef file included in the merged.lef :
 
-
+![lef file in merged.lef file](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%204%20lab/lef%20file%20of%20vsdinv%20created%20in%20the%20merged.lef%20file(1).png)
 
 The following is the screenshot of the terminal after running synthesis:
 
-
+![synthesis result](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%204%20lab/synthesis%20successful.png)
 
 
 It was noticed that the slack was very high. So, we tried to vary the synthesis strategies in order to reduce it.
 
 The following were the observations after changing the strategies:
 
-
+![changing strategy](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%204%20lab/results%20of%20changing%20the%20synthesis%20strategy.png)
 
 ## Floorplan and Placement ##
 
@@ -446,7 +446,9 @@ Floorplan was done using the same command run_floorplan. Then placement was perf
 
 After placement was completed, the layout of the placement result was opened in MAGIC and our custom cell was present in it as shown below:
 
+![vsdinv in layout](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%204%20lab/vsdinv%20present%20in%20the%20placement.png)
 
+![vsdinv in layout 1](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%204%20lab/vsdinv%20present%20in%20the%20placement%20after%20expand%20command.png)
 
 We can see that the cells in the layout overlap each other. This overlap was observed because of the abutment of the cells due to the power lines.
 
@@ -454,36 +456,40 @@ We can see that the cells in the layout overlap each other. This overlap was obs
 
 The my_base.sdc file was added in the src folder of picorv32a. Its content is as shown below:
 
-
+![my_base.sdc file](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%204%20lab/mybase.sdc%20file.png)
 
 Then a .conf file was created in the openLANE_flow folder. Its contents are as shown below:
 
-
+![sta.conf file](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%204%20lab/sta.conf%20file.png)
 
 This file was used to run STA in OpenSTA tool. To run STA, the command: sta pre_sta.conf was to be given in openLANE_flow. Below are the results obtained after running STA of this pre_sta.conf file:
 
-
+![sta of conf file](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%204%20lab/sta%20of%20pre_sta.conf%20file.png)
 
 Here we again observe that the slack violation is too high. It can be seen that the delay of each cell depends on the input delay and the output load capacitance (which depends on its FANOUT). So, the maximum fanout was set to 4 using the command: set (SYNTH_MAX_FANOUT) 4. The results obtained is as shown below:
 
-
+![changing max fanout](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%204%20lab/sta%20of%20pre_sta.conf%20file%20after%20changing%20max%20fanout.png)
 
 Here, we observe that the slack though improved is still high. It was seen that the below shown buffer was causing a high delay. 
 
-
+![the buff causing delay](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%204%20lab/this%20buff%20adding%200.72%20delay.png)
 
 So, we upsized it to sky130_fd_sc_hd__buf_4.
 
-
+![replacing the buff](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%204%20lab/replacing%20the%20buffer%20with%20a%20larger%20one.png)
 
 The result obtained was as follows:
 
+![improvement in slack](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%204%20lab/improvement%20in%20the%20slack.png)
 
+![improvement in delay of buff](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%204%20lab/improvement%20in%20the%20delay%20of%20the%20replaced%20buf.png)
 
 The slack again has improved but is still large. So, we further find the buffers which are causing this delay in the updated worst delay path. After a series of improvements, we arrived at a slack of -0.69 ns.
 
 
+![final slack](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%204%20lab/final%20slack.png)
 
+Thus, iteratively we had to improve the delay of the worst delay path.
 
 
 
@@ -493,16 +499,17 @@ This STA was done outside the OpenLANE flow, hence in order to include its resul
 
 This replaced the existing verilog file under the results of synthesis. This would be used for the further steps in the flow after synthesis. The floorplan and the placement were done as usual. After the placement, the core area was observed as follows:
 
-
+![core area after placement](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%204%20lab/core%20area%20after%20placement%20after%20sta.png)
 
 ## Running Clock Tree Synthesis ##
 
 After this the CTS was performed using the command: run_cts. The tool TritonCTS was used. The following were the parameters of cts that could be varied:
 
-
+![parameters of cts](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%204%20lab/parameters%20of%20cts.png)
 
 The results of CTS were as follows:
 
+![results of cts](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%204%20lab/end%20of%20cts.png)
 
 At the end of CTS, the clock buffers would be added to the netlist and the updated verilog file named picorv32a.synthesis_cts.v was created in the synthesis results of the picorv32a design. 
 
@@ -510,14 +517,14 @@ At the end of CTS, the clock buffers would be added to the netlist and the updat
 
 STA in OpenLANE is performed using the tool Openroad. Openroad is invoked in the OpenLANE flow by typing openroad. In this a db file had to be created, and the STA had to be performed. The screenshot after creating the db file is as shown below:
 
-
+![db file created](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%204%20lab/db%20file%20created.png)
 
 The result of STA are shown below:
 
+![result of sta 1](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%204%20lab/final%20results%20of%20sta%20in%20openroad%20in%20openlane.png)
 
 
-
-
+![result of sta 2](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%204%20lab/final%20results%20of%20sta%20in%20openroad%20in%20openlane(hold%20slack)%20the%20other%20is%20of%20typical%20column.png)
 
 
 This was the end of Day 4.
