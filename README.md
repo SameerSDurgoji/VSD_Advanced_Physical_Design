@@ -530,7 +530,57 @@ The result of STA are shown below:
 This was the end of Day 4.
 
 
+# Day 4 : Final steps for RTL2GDS using tritonRoute and openSTA #
 
+## Building the Power Distribution Network ##
+
+The power distribution network should have been generated in the floorplan step. But because of the adjustments in the OpenLANE, this is run after CTS. To see the current def, the command: echo $::env(CURRENT_DEF) should be given. This lets us know which step has be completed previously. To generate the PDN, the command : gen_pdn had to be given.This will create the grids and the stripes for the Vdd and Vss. The following was obtained after successful generation of PDN:
+
+
+
+Here we can observe that the pitch of the standard cell rails is 2.72. So, inorder to match the power and ground rails with the power and ground ports of the cell, the height of the cell must be an integral multiple of the pitch. The chip will get power from the Vdd and Ground pads. From the pads, it gets supplied to the rings. This then enters the vertical stripes. From the stripes, it is supplied to the standard cell rails as shown in the figure below:
+
+
+
+The next step is to run the routing.
+
+
+
+## Routing ##
+
+To run routing, the command: run_routing should be given. The different strategies for routing can be found in the README.md file. The strategies are as shown below:
+
+
+
+There are 5 routing strategies. The values 0 to 3 use TritinRoute 13. The value 14 will use the TritonRoute14. The TritonRoute 14 ensures 0 violations occur but we lose on the runtime and memory utilization.
+
+Given below is the screenshot after successful routing:
+
+
+
+This step takes many optimization iterations. The following is the screenshot of the details of seventh iteration:
+
+
+
+Total wire lengths of each metal layer is shown here. The number of violations are also shown. As the strategy used was 0, we dont have 0 violations. These violations can be found in the drc file shown. The contents of this file are shown below:
+
+
+
+## SPEF File ##
+After routing, the routes will be genterated. The next step is to extract the parasitics of these routes. This information is present in the SPEF file. SPEF extraction tool was not present in the OpenLANE tool, so it was performed outside the OpenLANE tool. In the SPEF extraction folder, there was a python file main.py. To start the extraction, the following command had to be given : python3 main.py <address of the merged.lef file> <address of the current def file (routing)>. The created SPEf file will be present in the same folder where the def is present.
+ 
+ 
+ 
+ Given below is the screenshot of the contents of the spef file.
+ 
+ 
+ 
+ In the results of the synthesis, we can find 4 verilog files:
+ 
+ * The first one was the one generated after the first synthesis.
+ * The second one was the one obtained after CTS when the clock buffers were added.
+ * The third one was generated during routing when the antenna diodes got inserted.
+ * The final one was the netlis used by the tool before routing.
 
 
 
