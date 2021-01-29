@@ -1,5 +1,9 @@
 # VSD Advanced Physical Design Workshop #
 
+## Table of Contents ##
+
+- [1. Introduction](#1-introduction)
+
 ## Introduction ##
 
 Advanced Physical Design using OpenLANE was a five day cloud based workshop organized by VSD. The main objectives of the workshop were:
