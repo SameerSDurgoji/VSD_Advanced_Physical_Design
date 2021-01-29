@@ -2,7 +2,9 @@
 
 ## Table of Contents ##
 
-- [1. Introduction](#1-introduction)
+[1. Introduction](#1-Introduction)
+
+[2. Day 1: Inception of open-source EDA, OpenLANE and Sky130 PDK ](#1-Day-1:-Inception-of-open-source-EDA,-OpenLANE-and-Sky130-PDK)
 
 ## Introduction ##
 
