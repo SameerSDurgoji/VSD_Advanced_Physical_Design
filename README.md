@@ -1,4 +1,15 @@
-# VSD_Advanced_Physical_Design
+# VSD Advanced Physical Design Workshop #
+
+## Introduction ##
+
+Advanced Physical Design using OpenLANE was a five day cloud based workshop organized by VSD. The main objectives of the workshop were:
+
+* Inception of open-source EDA, OpenLANE and Sky130 PDK.
+* Designing and characterize one library cell using Magic Layout tool and ngspice.
+* Incorporating this cell in the OpenLANE RTL2GDSII flow.
+* Anlaysing the results of each step and improving the design by changing design strategies and parameters.
+* Performing timing analysis and resolving design violations.
+
 # Day 1: Inception of open-source EDA, OpenLANE and Sky130 PDK #
 ## How to talk to computers ##
 ### Introduction to RISC V ###
@@ -297,20 +308,16 @@ Vm is the point where Vin = Vout. At this point, both the NMOSFET and the PMOSFE
 
 ### 16 Mask CMOS process ###
 
-1. Selection of the substrate:
+16 Mask process is the process of fabricating the CMOS gates and ICs using 16 different masks. It consists of the following steps:
 
-A suitable substrate is chosen with appropriate resistance, doping level and orientation. It should be kept in mind that the substrate doping level should be less than well doping. Eg. P type substrate, high resistivity(5-50 ohms), doping level(10^15 per sq.cm), orientation(100).
-
-2. Creating active region for transistors:
-
-On the P substrate, 40nm of SiO2 and 80nm of Si3N4, 1um of photoresist is deposited. **Mask 1** is used to cover the part of photoresist below which active region is to be created. After exposing to UV light, the mask will be removed. The Si3N4 will be etched out and then the photoresist is removed. This is the placed in oxidation furnace and field oxide is grown.
-
-3. N well and P well formation:
-4. Formation of gate:
-5. Lightly Doped Drain formation:
-6. Source & Drain formation:
-7. Steps to form Contacts and Interconnects:
-8. Higher level metal formation:
+1. Selection of the substrate.
+2. Creating active region for transistors.
+3. N well and P well formation.
+4. Formation of gate.
+5. Lightly Doped Drain formation.
+6. Source & Drain formation.
+7. Formation of Contacts and Interconnects.
+8. Higher level metal formation.
 
 ## Lab Exercises ##
 
@@ -530,17 +537,17 @@ The result of STA are shown below:
 This was the end of Day 4.
 
 
-# Day 4 : Final steps for RTL2GDS using tritonRoute and openSTA #
+# Day 5 : Final steps for RTL2GDS using tritonRoute and openSTA #
 
 ## Building the Power Distribution Network ##
 
 The power distribution network should have been generated in the floorplan step. But because of the adjustments in the OpenLANE, this is run after CTS. To see the current def, the command: echo $::env(CURRENT_DEF) should be given. This lets us know which step has be completed previously. To generate the PDN, the command : gen_pdn had to be given.This will create the grids and the stripes for the Vdd and Vss. The following was obtained after successful generation of PDN:
 
-
+![results of gen pdn](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%205%20lab/result%20of%20gen%20pdn.png)
 
 Here we can observe that the pitch of the standard cell rails is 2.72. So, inorder to match the power and ground rails with the power and ground ports of the cell, the height of the cell must be an integral multiple of the pitch. The chip will get power from the Vdd and Ground pads. From the pads, it gets supplied to the rings. This then enters the vertical stripes. From the stripes, it is supplied to the standard cell rails as shown in the figure below:
 
-
+![screenshot 1](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%205%20lab/Screenshot_1.png)
 
 The next step is to run the routing.
 
@@ -550,37 +557,58 @@ The next step is to run the routing.
 
 To run routing, the command: run_routing should be given. The different strategies for routing can be found in the README.md file. The strategies are as shown below:
 
-
+![routing strategy](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%205%20lab/strategy%20for%20routing.png)
 
 There are 5 routing strategies. The values 0 to 3 use TritinRoute 13. The value 14 will use the TritonRoute14. The TritonRoute 14 ensures 0 violations occur but we lose on the runtime and memory utilization.
 
+Routing takes place in two steps:
+
+* Global/Fast Routing: This uses the FastRoute tool to generate a coarse 3D routing. Entire routing region is demarked into grids and the routing guide is generated. This is followed by detailed routing.
+
+* Detailed Routing: This uses the TritonRoute tool. The TritonRoute generates detailed routing with optimized wire length and via contact according to the route guide, connectivity constraints and design rules. The inputs to this tool are the lef, def files and the preprocessed route guides.
+
 Given below is the screenshot after successful routing:
 
-
+![routing successful](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%205%20lab/results%20of%20routing.png)
 
 This step takes many optimization iterations. The following is the screenshot of the details of seventh iteration:
 
-
+![7th iteration](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%205%20lab/a%20screenshot%20of%207th%20iteration.png)
 
 Total wire lengths of each metal layer is shown here. The number of violations are also shown. As the strategy used was 0, we dont have 0 violations. These violations can be found in the drc file shown. The contents of this file are shown below:
 
-
+![list of violations](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%205%20lab/list%20of%20violations%20in%207th%20iteration.png)
 
 ## SPEF File ##
-After routing, the routes will be genterated. The next step is to extract the parasitics of these routes. This information is present in the SPEF file. SPEF extraction tool was not present in the OpenLANE tool, so it was performed outside the OpenLANE tool. In the SPEF extraction folder, there was a python file main.py. To start the extraction, the following command had to be given : python3 main.py <address of the merged.lef file> <address of the current def file (routing)>. The created SPEf file will be present in the same folder where the def is present.
+After routing, the routes will be generated. The next step is to extract the parasitics of these routes. This information is present in the SPEF file. SPEF extraction tool was not present in the OpenLANE tool, so it was performed outside the OpenLANE tool. In the SPEF extraction folder, there was a python file main.py. To start the extraction, the following command had to be given : python3 main.py <address of the merged.lef file> <address of the current def file (routing)>. The created SPEF file will be present in the same folder where the def is present.
  
- 
+ ![spef created](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%205%20lab/spef%20file%20created.png)
  
  Given below is the screenshot of the contents of the spef file.
  
- 
+ ![spef contents](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%205%20lab/a%20screenshot%20of%20spef%20file.png)
  
  In the results of the synthesis, we can find 4 verilog files:
+ 
+ ![contents of synth results](https://github.com/SameerSDurgoji/VSD_Advanced_Physical_Design/blob/main/Day%205%20lab/final%20contents%20of%20synthesis%20results.png)
  
  * The first one was the one generated after the first synthesis.
  * The second one was the one obtained after CTS when the clock buffers were added.
  * The third one was generated during routing when the antenna diodes got inserted.
- * The final one was the netlis used by the tool before routing.
+ * The final one was the netlist used by the tool before routing.
+ 
+ This completes the RTL to GDSII flow in the OpenLANE tool. We have seen all the steps involved in it. The interactive run of the OpenLANE tool was very useful and interesting. We could do as many iterations we wanted to do at any point in the flow. 
+ 
+ # Conclusion #
+ 
+ In this workshop, our aim was to characterize an inverter cell and use it in the picorv32a design. On the first day, we learnt the importance of Instruction Set Architecture and were introduced to the OpenLANE tool, the RTL2GDSII flow in it. We also learnt how to run the synthesis step. On the second day, we learnt the importance of floorplanning, did floorplanning and placement. We were introduced to the standard cell characterization. On the third day, we designed an inverter standard cell using Magic Layout and ngspice characterization. We were also intrduced to the 16 Mask CMOS process which was very interesting. On the fourth day, we merged the lef file of our custom inverter with the lef of the picorv32a design and started the RTL2GDSII flow from the synthesis as a new cell was added. Different strategies were used to minimize the slack violation. We were also introduced to OpenSTA tool and improvizing the slack to meet the timing constraints. Then, we performed CTS in OpenLANE and STA in OpenRoad tool. On the last day, we generated the power distribution network and performed ruting using TritonRoute and the SPEF file was extracted.
+ 
+ Thus, we successfully characterized an inverter cell and used it in the picorv32a design using the OpenLANE tool.
+ 
+ # Acknowledgements #
+ 
+ * Kunal Ghosh, co-founder of VLSI System Design (VSD) Corp. Pvt. Ltd.
+ * Nickson Jose - VSD VLSI Engineer.
 
 
 
