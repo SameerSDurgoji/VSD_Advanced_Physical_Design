@@ -4,6 +4,11 @@
 
 - [1. Introduction](#introduction)
 - [2. Day 1: Inception of opensource EDA, OpenLANE and Sky130 PDK](#day-1-inception-of-opensource-eda-openlane-and-sky130-pdk)
+  * [2.1. How to talk to computers](#how-to-talk-to-computers)
+  * [2.2. SoC design and OpenLANE](#soc-design-and-openlane)
+  * [2.3 Getting familiar with open source EDA tools](#getting-familiar-with-open-source-eda-tools)
+
+  
 
 ## Introduction ##
 
