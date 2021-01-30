@@ -637,7 +637,7 @@ After routing, the routes will be generated. The next step is to extract the par
  
  # Acknowledgements #
  
- * Kunal Ghosh, co-founder of VLSI System Design (VSD) Corp. Pvt. Ltd.
+ * Kunal Ghosh, Co-Founder of VLSI System Design (VSD) Corp. Pvt. Ltd.
  * Nickson Jose - VSD VLSI Engineer.
 
 
