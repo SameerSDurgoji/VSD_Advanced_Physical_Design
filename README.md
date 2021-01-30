@@ -2,8 +2,8 @@
 
 ## Table of Contents ##
 
-1. [Introduction](## Introduction ##)
-2. [Day 1: Inception of open-source EDA, OpenLANE and Sky130 PDK](# Day%201:%20Inception%20of%20open-source%20EDA,%20OpenLANE%20and%20Sky130%20PDK #)
+- [1. Introduction](#1-introduction)
+- [2. Day 1: Inception of open-source EDA, OpenLANE and Sky130 PDK](#2-day-1:-inception-of-opensource-eda,-openlane-and-sky130-pdk)
 
 ## Introduction ##
 
@@ -15,7 +15,7 @@ Advanced Physical Design using OpenLANE was a five day cloud based workshop orga
 * Anlaysing the results of each step and improving the design by changing design strategies and parameters.
 * Performing timing analysis and resolving design violations.
 
-# Day 1: Inception of open-source EDA, OpenLANE and Sky130 PDK #
+# Day 1: Inception of opensource EDA, OpenLANE and Sky130 PDK #
 ## How to talk to computers ##
 ### Introduction to RISC V ###
 * What is an Instruction Set Architecture?
