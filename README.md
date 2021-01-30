@@ -7,8 +7,16 @@
   * [2.1. How to talk to computers](#how-to-talk-to-computers)
   * [2.2. SoC design and OpenLANE](#soc-design-and-openlane)
   * [2.3 Getting familiar with open source EDA tools](#getting-familiar-with-open-source-eda-tools)
-
-  
+- [3. Day 2: Understand importance of good floorplan vs bad floorplan and introduction to library cells](#day-2:-understand-importance-of-good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)
+  * [3.1 Chip Floor Planning Considerations](#chip-floor-planning-considerations)
+  * [3.2 Floorplan](#floorplan)
+  * [3.3 Placement](#placement)
+  * [3.4 Cell Design Flow](#cell-design-flow)
+- [4. Day 3: Design library cell using Magic Layout and ngspice characterization](#day-3:-design-library-cell-using-magic-layout-and-ngspice-characterization)
+  * [4.1 SPICE deck creation for a CMOS Inverter](#spice-deck-creation-for-a-cmos-inverter)
+  * [4.2 Inception of Layout - CMOS fabrication process](#inception-of-layout---cmos-fabrication-process)
+  * [4.3 Lab Exercises](#lab-exercises)
+- [5. Day 4: Pre-layout timing analysis and importance of good clock tree](#day-4:-pre-layout-timing-analysis-and-importance-of-good-clock-tree)
 
 ## Introduction ##
 
@@ -123,7 +131,7 @@ It is the ratio of the number of buffers to the total number of cells.
 The buffer ratio was found to be 0.1322 .
 
 
-# Day 2:  Understand importance of good floorplan vs bad floorplan and introduction to library cells #
+# Day 2: Understand importance of good floorplan vs bad floorplan and introduction to library cells #
 
 ## Chip Floor Planning Considerations ##
 The following are the considerations of a Chip Floorplan:
@@ -175,7 +183,7 @@ The connectivity information between the gates is coded using VHDL or verilog la
 
 The area between the die and core is used to fill pin information and is blocked for the placement and routing tool as it is reserved for pin placement.
 
-### Running the floorplan on OpenLANE tool ###
+## Floorplan ##
 
 To run the floorplan, the command run_floorplan must be given. 
                 
